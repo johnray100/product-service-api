@@ -1,0 +1,124 @@
+### Base URL
+@baseUrl = http://localhost:8080/api/products
+
+### ============================================
+### 1. CREATE Product (POST)
+### ============================================
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "sku": "INTELLIJ-001",
+  "name": "IntelliJ Test Product",
+  "description": "Created from IntelliJ HTTP Client",
+  "price": 199.99,
+  "quantity": 150,
+  "category": "Development Tools",
+  "brand": "JetBrains"
+}
+
+### ============================================
+### 2. GET All Products
+### ============================================
+GET {{baseUrl}}
+
+### ============================================
+### 3. GET Product by ID (Change ID number)
+### ============================================
+GET {{baseUrl}}/1
+
+### ============================================
+### 4. GET Product by SKU
+### ============================================
+GET {{baseUrl}}/sku/INTELLIJ-001
+
+### ============================================
+### 5. GET Products by Category
+### ============================================
+GET {{baseUrl}}/category/Electronics
+
+### ============================================
+### 6. SEARCH Products by Name
+### ============================================
+GET {{baseUrl}}/search?name=laptop
+
+### ============================================
+### 7. UPDATE Product (PUT) - Change ID number
+### ============================================
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+  "sku": "INTELLIJ-001",
+  "name": "Updated IntelliJ Product",
+  "description": "This product was updated via IntelliJ",
+  "price": 299.99,
+  "quantity": 100,
+  "category": "Development Tools Pro",
+  "brand": "JetBrains Ultimate"
+}
+
+### ============================================
+### 8. DELETE Product (DELETE) - Change ID number
+### ============================================
+DELETE {{baseUrl}}/1
+
+### ============================================
+### 9. CREATE Multiple Products (Bulk Insert)
+### ============================================
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "sku": "BULK-001",
+  "name": "Bulk Product 1",
+  "description": "First bulk product",
+  "price": 49.99,
+  "quantity": 200,
+  "category": "Bulk Items",
+  "brand": "BulkBrand"
+}
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "sku": "BULK-002",
+  "name": "Bulk Product 2",
+  "description": "Second bulk product",
+  "price": 59.99,
+  "quantity": 180,
+  "category": "Bulk Items",
+  "brand": "BulkBrand"
+}
+
+### ============================================
+### 10. Test Validation Errors (Missing Fields)
+### ============================================
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "sku": "",
+  "name": "",
+  "price": -10,
+  "quantity": -5
+}
+
+### ============================================
+### 11. Test Duplicate SKU (Should fail)
+### ============================================
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "sku": "INTELLIJ-001",
+  "name": "Duplicate SKU Test",
+  "description": "This should fail because SKU already exists",
+  "price": 99.99,
+  "quantity": 50,
+  "category": "Test",
+  "brand": "Test"
+}
